@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AutoGuide AR - Manual Interactivo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+
+    <style>
+        /* Estilos personalizados sobre Bootstrap */
+        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Capa UI que flota sobre la cámara */
+        #ui-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; pointer-events: none; /* Dejar pasar clicks a la escena 3D salvo en botones */
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        /* Elementos interactivos (sí capturan clicks) */
+        .interactive { pointer-events: auto; }
+
+        /* Marco de escaneo */
+        .scan-frame {
+            border: 2px dashed rgba(255, 255, 255, 0.7);
+            width: 80%; height: 40%;
+            margin: auto; border-radius: 20px;
+            box-shadow: 0 0 100px rgba(0,0,0,0.5) inset;
+            display: flex; justify-content: center; align-items: center;
+        }
+        
+        /* Indicador de estado */
+        .status-badge {
+            background: rgba(0, 0, 0, 0.7); color: white;
+            padding: 8px 15px; border-radius: 50px;
+            font-size: 0.9rem; margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .scanning-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+
+    <div id="ui-layer">
+        
+        <div class="d-flex justify-content-between align-items-center p-3 interactive bg-gradient-dark">
+            <h5 class="text-white m-0"><i class="fas fa-car-side me-2"></i>AutoGuide AR</h5>
+            <button class="btn btn-sm btn-outline-light rounded-circle" data-bs-toggle="modal" data-bs-target="#helpModal">
+                <i class="fas fa-question"></i>
+            </button>
+        </div>
+
+        <div class="scan-frame text-white text-center">
+            <div id="scan-text" class="scanning-animation">
+                <i class="fas fa-camera fa-2x mb-2"></i><br>
+                Apunta al frente del auto
+            </div>
+        </div>
+
+        <div class="text-center p-4">
+            <span id="status-msg" class="status-badge">Buscando vehículo...</span>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom h-50 interactive" tabindex="-1" id="manualEngine" aria-labelledby="manualEngineLabel">
+        <div class="offcanvas-header bg-primary text-white">
+            <h5 class="offcanvas-title" id="manualEngineLabel"><i class="fas fa-oil-can me-2"></i>Mantenimiento Motor</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <h6>Revisión de Niveles</h6>
+            <p class="small text-muted">Asegúrese de que el motor esté frío antes de revisar.</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Varilla de aceite: Lado izquierdo (tapa amarilla).</li>
+                <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Líquido de frenos: Depósito traslúcido superior.</li>
+                <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Refrigerante: Lado derecho.</li>
+            </ul>
+            <button class="btn btn-outline-primary w-100 mt-3">Ver Video Tutorial</button>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom h-50 interactive" tabindex="-1" id="manualInterior" aria-labelledby="manualInteriorLabel">
+        <div class="offcanvas-header bg-success text-white">
+            <h5 class="offcanvas-title"><i class="fas fa-key me-2"></i>Guía de Encendido</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="alert alert-info">
+                <strong>Sistema Keyless:</strong> No es necesario insertar la llave si la batería tiene carga.
+            </div>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item">Asegúrese de que la palanca esté en <strong>P (Parking)</strong>.</li>
+                <li class="list-group-item">Pise el pedal del freno firmemente.</li>
+                <li class="list-group-item">Presione el botón <strong>START/STOP</strong> ubicado junto al volante.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="modal fade interactive" id="helpModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Instrucciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Apunta la cámara de tu dispositivo hacia el frente del vehículo. Asegúrate de que haya buena iluminación. Toca los puntos azules para ver información.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.0001; filterBeta: 0.001;" 
+             color-space="sRGB" 
+             renderer="colorManagement: true, physicallyCorrectLights" 
+             vr-mode-ui="enabled: false" 
+             device-orientation-permission-ui="enabled: false">
+
+        <a-assets>
+            </a-assets>
+
+        <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
+
+        <a-entity id="mytarget" mindar-image-target="targetIndex: 0">
+            
+            <a-entity position="0 0.6 0">
+                <a-plane color="black" opacity="0.8" width="1.2" height="0.3"></a-plane>
+                <a-text value="MAZDA 3 DETECTADO" align="center" width="4"></a-text>
+            </a-entity>
+
+            <a-entity id="ar-btn-engine" class="clickable" position="-0.5 0 0">
+                <a-ring color="#0d6efd" radius-inner="0.1" radius-outer="0.15" animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000"></a-ring>
+                <a-circle color="#0d6efd" radius="0.1"></a-circle>
+                <a-text value="MOTOR" align="center" position="0 -0.2 0" width="3" color="white" bg-color="black"></a-text>
+            </a-entity>
+
+            <a-entity id="ar-btn-interior" class="clickable" position="0.5 0.2 0">
+                <a-ring color="#198754" radius-inner="0.1" radius-outer="0.15" animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000"></a-ring>
+                <a-circle color="#198754" radius="0.1"></a-circle>
+                <a-text value="GUIA\nENCENDIDO" align="center" position="0 -0.25 0" width="3" color="white"></a-text>
+            </a-entity>
+
+        </a-entity>
+    </a-scene>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Referencias al DOM
+        const target = document.querySelector('#mytarget');
+        const statusMsg = document.querySelector('#status-msg');
+        const scanText = document.querySelector('#scan-text');
+        const scanFrame = document.querySelector('.scan-frame');
+
+        // Referencias a los botones AR
+        const btnEngineAR = document.querySelector('#ar-btn-engine');
+        const btnInteriorAR = document.querySelector('#ar-btn-interior');
+
+        // Referencias a los Modals/Offcanvas de Bootstrap
+        // Usamos la API de Bootstrap para abrirlos desde JS
+        const manualEngine = new bootstrap.Offcanvas(document.getElementById('manualEngine'));
+        const manualInterior = new bootstrap.Offcanvas(document.getElementById('manualInterior'));
+
+        // 1. DETECCIÓN DEL AUTO
+        target.addEventListener("targetFound", event => {
+            console.log("Auto encontrado");
+            statusMsg.innerText = "¡Vehículo Detectado!";
+            statusMsg.classList.remove('bg-dark');
+            statusMsg.classList.add('bg-success');
+            
+            // Ocultar marco de escaneo para limpiar la vista
+            scanFrame.style.borderColor = "transparent";
+            scanText.style.display = 'none';
+        });
+
+        target.addEventListener("targetLost", event => {
+            console.log("Auto perdido");
+            statusMsg.innerText = "Buscando vehículo...";
+            statusMsg.classList.remove('bg-success');
+            statusMsg.classList.add('bg-dark');
+
+            // Mostrar marco de nuevo
+            scanFrame.style.borderColor = "rgba(255, 255, 255, 0.7)";
+            scanText.style.display = 'block';
+        });
+
+        // 2. INTERACCIÓN (Clicks en AR)
+        
+        // Click en Botón Motor
+        btnEngineAR.addEventListener('click', function (evt) {
+            // Abrir panel de Bootstrap
+            manualEngine.show();
+        });
+
+        // Click en Botón Interior/Encendido
+        btnInteriorAR.addEventListener('click', function (evt) {
+            // Abrir panel de Bootstrap
+            manualInterior.show();
+        });
+
+    </script>
+</body>
+</html>
