@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shelby GT500 AR Experience</title>
+    <title>Shelby GT500 - Manual AR</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,131 +12,129 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
 
     <style>
-        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', Roboto, sans-serif; }
         
-        /* UI HUD LAYER */
         #ui-layer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 10; pointer-events: none;
             display: flex; flex-direction: column; justify-content: space-between;
         }
+        
         .interactive { pointer-events: auto; }
+        .cobra-text { color: #3498db; letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
 
-        /* Estilo Cobra */
-        .cobra-badge {
-            background: linear-gradient(45deg, #000, #2c3e50);
-            border: 1px solid #fff;
-            color: white; padding: 10px 20px; border-radius: 5px;
-            text-transform: uppercase; letter-spacing: 2px; font-weight: bold;
+        /* Estilo del Botón Manual Principal */
+        .btn-manual {
+            border: 1px solid #3498db;
+            color: #3498db;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-manual:hover {
+            background: #3498db;
+            color: white;
         }
 
-        /* Marco de Escaneo */
         .scan-frame {
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            width: 80%; height: 40%; margin: auto; border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 80%; height: 40%; margin: auto; border-radius: 15px;
             display: flex; justify-content: center; align-items: center;
-            background: rgba(0,0,0,0.2);
-            box-shadow: 0 0 50px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 0 50px rgba(52, 152, 219, 0.1) inset;
+        }
+
+        .status-pill {
+            background: rgba(0, 0, 0, 0.8); color: white;
+            padding: 8px 20px; border-radius: 50px;
+            font-size: 0.9rem; border: 1px solid #555;
         }
     </style>
 </head>
 <body>
 
     <div id="ui-layer">
-        <div class="p-3 interactive d-flex justify-content-between align-items-center bg-black text-white bg-opacity-75">
-            <span><i class="fas fa-horse me-2"></i>SHELBY GT500</span>
-            <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal" data-bs-target="#helpModal">?</button>
+        
+        <div class="p-3 interactive d-flex justify-content-between align-items-center bg-black bg-opacity-75 text-white">
+            <span class="cobra-text d-none d-sm-block"><i class="fas fa-snake me-2"></i>GT500 AR</span>
+            
+            <div class="d-flex gap-2">
+                <a href="./manual_shelby.pdf" target="_blank" class="btn btn-sm btn-manual rounded-pill">
+                    <i class="fas fa-file-pdf me-2"></i>MANUAL PDF
+                </a>
+                <button class="btn btn-sm btn-outline-light rounded-circle" data-bs-toggle="modal" data-bs-target="#helpModal">?</button>
+            </div>
         </div>
 
         <div class="scan-frame text-white text-center" id="scan-ui">
-            <div class="small opacity-75">
-                <i class="fas fa-camera fa-2x mb-3"></i><br>
-                Escanea: Exterior, Motor o Interior
+            <div class="opacity-75">
+                <i class="fas fa-expand fa-2x mb-2"></i><br>
+                <small>Escanea Lateral, Motor o Interior</small>
             </div>
         </div>
 
         <div class="text-center p-4">
-            <span id="status-msg" class="cobra-badge">ESPERANDO OBJETIVO...</span>
+            <span id="status-msg" class="status-pill">ESPERANDO VEHÍCULO...</span>
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-bottom h-75 interactive bg-dark text-white" tabindex="-1" id="panelGeneral">
+    <div class="offcanvas offcanvas-bottom h-75 interactive text-white bg-dark" tabindex="-1" id="panelGeneral">
         <div class="offcanvas-header border-bottom border-secondary">
-            <h5 class="offcanvas-title text-primary fw-bold">FORD MUSTANG SHELBY GT500</h5>
+            <h5 class="offcanvas-title cobra-text">Ficha Técnica</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
-            <img src="./lado.jpg" class="img-fluid rounded mb-3 shadow" style="max-height: 150px; width: 100%; object-fit: cover;">
+            <img src="./lado.png" class="img-fluid rounded mb-3 shadow-lg">
+            <h4 class="fw-bold mb-3">Shelby GT500 2022</h4>
+            <p>El pináculo del rendimiento diseñado para competir con superdeportivos.</p>
             
-            <h6 class="text-uppercase text-info mb-3">Diseño y Aerodinámica</h6>
-            <ul class="list-unstyled small">
-                <li class="mb-2"><i class="fas fa-wind me-2 text-primary"></i><strong>Frente:</strong> Parrilla abierta masiva (50% más flujo de aire que GT350).</li>
-                <li class="mb-2"><i class="fas fa-road me-2 text-primary"></i><strong>Chasis:</strong> Suspensión MagneRide que ajusta rigidez 1000 veces/seg.</li>
-                <li class="mb-2"><i class="fas fa-dot-circle me-2 text-primary"></i><strong>Frenos:</strong> Brembo 420mm (6 pistones), los más grandes en un coupé americano.</li>
-            </ul>
-
-            <div class="alert alert-dark border-secondary mt-3">
-                <strong><i class="fas fa-star me-2 text-warning"></i>Heritage Edition:</strong> Color Brittany Blue con franjas Wimbledon White (Homenaje a 1967).
-            </div>
+            <a href="https://www.ford.mx/performance/shelby-gt500/2022/" target="_blank" class="btn btn-outline-light w-100 mt-3">
+                <i class="fas fa-download me-2"></i>Descargar Catálogo Completo
+            </a>
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-bottom h-75 interactive bg-dark text-white" tabindex="-1" id="panelMotor">
-        <div class="offcanvas-header border-bottom border-secondary">
-            <h5 class="offcanvas-title text-danger fw-bold"><i class="fas fa-fire me-2"></i>EL CORAZÓN "PREDATOR"</h5>
+    <div class="offcanvas offcanvas-bottom h-75 interactive text-white bg-dark" tabindex="-1" id="panelMotor">
+        <div class="offcanvas-header border-bottom border-danger">
+            <h5 class="offcanvas-title text-danger fw-bold"><i class="fas fa-fire me-2"></i>MOTOR PREDATOR</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
-            <img src="./motor.jpg" class="img-fluid rounded mb-3 shadow" style="max-height: 150px; width: 100%; object-fit: cover;">
-            
-            <div class="row text-center mb-3">
-                <div class="col-4 border-end border-secondary">
-                    <h3 class="display-6 fw-bold text-danger">760</h3>
-                    <small>Caballos (HP)</small>
-                </div>
-                <div class="col-4 border-end border-secondary">
-                    <h3 class="display-6 fw-bold">V8</h3>
-                    <small>5.2L Supercargado</small>
-                </div>
-                <div class="col-4">
-                    <h3 class="display-6 fw-bold">3.5s</h3>
-                    <small>0-100 km/h</small>
-                </div>
+            <img src="./motor.jpg" class="img-fluid rounded mb-3 shadow-lg">
+            <div class="d-flex justify-content-between text-center mb-4">
+                <div><h2 class="text-danger fw-bold m-0">760</h2><small>HP</small></div>
+                <div class="border-start border-secondary mx-2"></div>
+                <div><h2 class="fw-bold m-0">V8</h2><small>5.2L</small></div>
             </div>
-
-            <ul class="list-group list-group-flush bg-transparent">
-                <li class="list-group-item bg-transparent text-white"><i class="fas fa-cog me-2"></i><strong>Torque:</strong> 625 lb-pie @ 5,000 rpm.</li>
-                <li class="list-group-item bg-transparent text-white"><i class="fas fa-random me-2"></i><strong>Transmisión:</strong> TREMEC Doble Embrague (DCT) 7 vel (Cambios en 80ms).</li>
-                <li class="list-group-item bg-transparent text-white"><i class="fas fa-tachometer-alt me-2"></i><strong>Vel. Máxima:</strong> 290 km/h (Limitada).</li>
-            </ul>
+            
+            <a href="https://www.youtube.com/watch?v=bBKZZj8JFXY" target="_blank" class="btn btn-danger w-100 mt-2">
+                <i class="fas fa-file-alt me-2"></i>Ver Shelby GT500
+            </a>
+            <small class="text-muted d-block text-center mt-2">*Todo acerca del motor</small>
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-bottom h-75 interactive bg-dark text-white" tabindex="-1" id="panelInterior">
-        <div class="offcanvas-header border-bottom border-secondary">
-            <h5 class="offcanvas-title text-success fw-bold"><i class="fas fa-gamepad me-2"></i>COCKPIT DIGITAL</h5>
+    <div class="offcanvas offcanvas-bottom h-60 interactive text-white" style="background-color: #0f2b1d;" tabindex="-1" id="panelInterior">
+        <div class="offcanvas-header bg-success text-white">
+            <h5 class="offcanvas-title">Guía de Encendido</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body">
-            <img src="./interior.jpg" class="img-fluid rounded mb-3 shadow" style="max-height: 150px; width: 100%; object-fit: cover;">
-
-            <div class="d-grid gap-2 mb-3">
-                <button class="btn btn-outline-success text-start"><i class="fas fa-tv me-2"></i>Tablero Digital 12" Personalizable</button>
-                <button class="btn btn-outline-success text-start"><i class="fas fa-music me-2"></i>SYNC 3 + Apple CarPlay/Android Auto</button>
-                <button class="btn btn-outline-light text-start"><i class="fas fa-chair me-2"></i>Asientos Recaro (Opcionales para pista)</button>
-            </div>
+        <div class="offcanvas-body bg-dark text-white">
+            <ol class="list-group list-group-numbered list-group-flush">
+                <li class="list-group-item bg-transparent text-white">Palanca en <strong>P</strong>.</li>
+                <li class="list-group-item bg-transparent text-white">Pise freno.</li>
+                <li class="list-group-item bg-transparent text-white">Pulse <strong>START</strong>.</li>
+            </ol>
             
-            <p class="small text-muted mt-2">
-                <i class="fas fa-info-circle me-1"></i> Nota: No tiene palanca tradicional, usa perilla rotatoria para cambios más rápidos.
-            </p>
+            <a href="https://www.youtube.com/watch?v=VO_MmtM9Mrg" target="_blank" class="btn btn-success w-100 mt-3">
+                <i class="fas fa-book-open me-2"></i>Leer Guía de Usuario
+            </a>
         </div>
     </div>
 
-    <div class="modal fade interactive text-dark" id="helpModal" tabindex="-1">
+    <div class="modal fade interactive" id="helpModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content text-dark">
                 <div class="modal-header"><h5>Instrucciones</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body">Apunta a las imágenes del catálogo del Shelby GT500 (Lateral, Motor o Interior) para desbloquear la ficha técnica.</div>
+                <div class="modal-body">Apunta la cámara a las partes del Shelby GT500.</div>
             </div>
         </div>
     </div>
@@ -144,38 +142,33 @@
     <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.0001; filterBeta: 0.001;" 
              color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" 
              vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-
-        <a-assets>
-            </a-assets>
-
+        
         <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
 
-        <a-entity mindar-image-target="targetIndex: 2" id="target-gral">
-            <a-entity class="clickable" id="btn-gral" position="0 0 0"
-                      animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
-                <a-circle radius="0.4" color="#0d6efd" opacity="0.8"></a-circle>
-                <a-ring radius-inner="0.4" radius-outer="0.5" color="white"></a-ring>
-                <a-text value="VER FICHA\nTECNICA" align="center" width="4" position="0 0 0.1"></a-text>
+        <a-entity mindar-image-target="targetIndex: 1" id="target-side">
+            <a-text value="SHELBY GT500" color="#3498db" align="center" position="0 0.6 0" scale="1.2 1.2 1.2"></a-text>
+            <a-entity class="clickable" id="btn-ar-side" position="0 0 0" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
+                <a-circle radius="0.3" color="#000" opacity="0.7" border="color: white; width: 5"></a-circle>
+                <a-ring radius-inner="0.3" radius-outer="0.35" color="#3498db"></a-ring>
+                <a-text value="VER INFO" align="center" position="0 0 0.05" width="4"></a-text>
             </a-entity>
         </a-entity>
 
-        <a-entity mindar-image-target="targetIndex: 0" id="target-motor">
-            <a-entity class="clickable" id="btn-motor" position="0 0 0"
-                      animation="property: rotation; to: 0 0 360; loop: true; dur: 10000; easing: linear">
-                <a-circle radius="0.3" color="#dc3545" opacity="0.8"></a-circle>
-                <a-ring radius-inner="0.3" radius-outer="0.4" color="white" segments-theta="8"></a-ring>
-                <a-text value="PREDATOR V8\nINFO" align="center" width="4" position="0 0 0.1" rotation="0 0 0"></a-text>
+        <a-entity mindar-image-target="targetIndex: 2" id="target-motor">
+            <a-text value="PREDATOR V8" color="#e74c3c" align="center" position="0 0.5 0"></a-text>
+            <a-entity class="clickable" id="btn-ar-motor" position="0 0 0">
+                 <a-ring radius-inner="0.2" radius-outer="0.25" color="#e74c3c"></a-ring>
+                 <a-circle radius="0.15" color="black" opacity="0.8"></a-circle>
+                 <a-text value="760 HP" align="center" color="#e74c3c" width="3" position="0 0 0.05"></a-text>
             </a-entity>
         </a-entity>
 
-        <a-entity mindar-image-target="targetIndex: 1" id="target-interior">
-            <a-entity class="clickable" id="btn-interior" position="0 0 0">
-                <a-plane width="0.8" height="0.3" color="#198754" opacity="0.9" rx="10"></a-plane>
-                <a-text value="ENTRAR AL COCKPIT" align="center" width="4" position="0 0 0.1"></a-text>
-                <a-entity position="0 -0.4 0" 
-                          animation="property: position; to: 0 -0.3 0; dir: alternate; loop: true; dur: 500">
-                    <a-triangle vertex-a="0 0.1 0" vertex-b="-0.1 -0.1 0" vertex-c="0.1 -0.1 0" color="white"></a-triangle>
-                </a-entity>
+        <a-entity mindar-image-target="targetIndex: 0" id="target-interior">
+            <a-text value="ENCENDER" color="#2ecc71" align="center" position="0 0.5 0"></a-text>
+            <a-entity class="clickable" id="btn-ar-start" position="0 0 0">
+                <a-cylinder color="#bdc3c7" height="0.05" radius="0.25"></a-cylinder>
+                <a-cylinder color="#c0392b" height="0.06" radius="0.2" position="0 0.02 0" animation="property: material.color; from: #c0392b; to: #e74c3c; dir: alternate; loop: true; dur: 800"></a-cylinder>
+                <a-text value="START" align="center" color="white" position="0 0.06 0" rotation="-90 0 0" scale="0.5 0.5 0.5"></a-text>
             </a-entity>
         </a-entity>
 
@@ -183,46 +176,38 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Referencias Offcanvas
         const pGeneral = new bootstrap.Offcanvas('#panelGeneral');
         const pMotor = new bootstrap.Offcanvas('#panelMotor');
         const pInterior = new bootstrap.Offcanvas('#panelInterior');
-
-        // Referencias UI
         const statusMsg = document.getElementById('status-msg');
         const scanUI = document.getElementById('scan-ui');
 
-        function updateStatus(text, color) {
-            statusMsg.innerText = text;
-            statusMsg.style.borderColor = color;
-            statusMsg.style.color = color;
-            scanUI.style.opacity = 0; // Ocultar guía visual
+        function onFound(text, color) {
+            statusMsg.innerHTML = `<i class="fas fa-check-circle me-2"></i>${text}`;
+            statusMsg.style.borderColor = color; statusMsg.style.color = color;
+            scanUI.style.opacity = 0;
         }
-
-        function resetStatus() {
-            statusMsg.innerText = "ESPERANDO OBJETIVO...";
-            statusMsg.style.borderColor = "white";
-            statusMsg.style.color = "white";
+        function onLost() {
+            statusMsg.innerText = "ESPERANDO VEHÍCULO...";
+            statusMsg.style.borderColor = "#555"; statusMsg.style.color = "white";
             scanUI.style.opacity = 1;
         }
 
-        // --- Eventos Lado (General) ---
-        const tGral = document.getElementById('target-gral');
-        tGral.addEventListener("targetFound", () => updateStatus("GT500 DETECTADO", "#0d6efd"));
-        tGral.addEventListener("targetLost", resetStatus);
-        document.getElementById('btn-gral').addEventListener('click', () => pGeneral.show());
+        // Eventos
+        const tSide = document.getElementById('target-side');
+        tSide.addEventListener("targetFound", () => onFound("EXTERIOR", "#3498db"));
+        tSide.addEventListener("targetLost", onLost);
+        document.getElementById('btn-ar-side').addEventListener('click', () => pGeneral.show());
 
-        // --- Eventos Motor ---
         const tMotor = document.getElementById('target-motor');
-        tMotor.addEventListener("targetFound", () => updateStatus("MOTOR PREDATOR V8", "#dc3545"));
-        tMotor.addEventListener("targetLost", resetStatus);
-        document.getElementById('btn-motor').addEventListener('click', () => pMotor.show());
+        tMotor.addEventListener("targetFound", () => onFound("MOTOR", "#e74c3c"));
+        tMotor.addEventListener("targetLost", onLost);
+        document.getElementById('btn-ar-motor').addEventListener('click', () => pMotor.show());
 
-        // --- Eventos Interior ---
         const tInterior = document.getElementById('target-interior');
-        tInterior.addEventListener("targetFound", () => updateStatus("INTERIOR DETECTADO", "#198754"));
-        tInterior.addEventListener("targetLost", resetStatus);
-        document.getElementById('btn-interior').addEventListener('click', () => pInterior.show());
+        tInterior.addEventListener("targetFound", () => onFound("INTERIOR", "#2ecc71"));
+        tInterior.addEventListener("targetLost", onLost);
+        document.getElementById('btn-ar-start').addEventListener('click', () => pInterior.show());
     </script>
 </body>
 </html>
