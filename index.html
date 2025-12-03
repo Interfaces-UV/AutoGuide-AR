@@ -145,10 +145,13 @@
         
         <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
 
-        <a-entity mindar-image-target="targetIndex: 1" id="target-side">
+        <a-entity mindar-image-target="targetIndex: 0" id="target-side">
             <a-text value="SHELBY GT500" color="#3498db" align="center" position="0 0.6 0" scale="1.2 1.2 1.2"></a-text>
-            <a-entity class="clickable" id="btn-ar-side" position="0 0 0" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
-                <a-circle radius="0.3" color="#000" opacity="0.7" border="color: white; width: 5"></a-circle>
+            
+            <a-entity position="0 0 0" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
+                
+                <a-circle id="btn-ar-side" class="clickable" radius="0.3" color="#000" opacity="0.7" border="color: white; width: 5"></a-circle>
+                
                 <a-ring radius-inner="0.3" radius-outer="0.35" color="#3498db"></a-ring>
                 <a-text value="VER INFO" align="center" position="0 0 0.05" width="4"></a-text>
             </a-entity>
@@ -156,17 +159,22 @@
 
         <a-entity mindar-image-target="targetIndex: 2" id="target-motor">
             <a-text value="PREDATOR V8" color="#e74c3c" align="center" position="0 0.5 0"></a-text>
-            <a-entity class="clickable" id="btn-ar-motor" position="0 0 0">
+            
+            <a-entity position="0 0 0">
                  <a-ring radius-inner="0.2" radius-outer="0.25" color="#e74c3c"></a-ring>
-                 <a-circle radius="0.15" color="black" opacity="0.8"></a-circle>
+                 
+                 <a-circle id="btn-ar-motor" class="clickable" radius="0.15" color="black" opacity="0.8"></a-circle>
+                 
                  <a-text value="760 HP" align="center" color="#e74c3c" width="3" position="0 0 0.05"></a-text>
             </a-entity>
         </a-entity>
 
-        <a-entity mindar-image-target="targetIndex: 0" id="target-interior">
+        <a-entity mindar-image-target="targetIndex: 1" id="target-interior">
             <a-text value="ENCENDER" color="#2ecc71" align="center" position="0 0.5 0"></a-text>
-            <a-entity class="clickable" id="btn-ar-start" position="0 0 0">
-                <a-cylinder color="#bdc3c7" height="0.03" radius="0.2"></a-cylinder>
+            
+            <a-entity position="0 0 0">
+                <a-cylinder id="btn-ar-start" class="clickable" color="#bdc3c7" height="0.03" radius="0.2"></a-cylinder>
+                
                 <a-cylinder color="#c0392b" height="0.04" radius="0.15" position="0 0.02 0" animation="property: material.color; from: #c0392b; to: #e74c3c; dir: alternate; loop: true; dur: 800"></a-cylinder>
                 <a-text value="START" align="center" color="white" position="0 0.06 0" rotation="-90 0 0" scale="0.5 0.5 0.5"></a-text>
             </a-entity>
