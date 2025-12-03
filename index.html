@@ -187,17 +187,17 @@
 
         <a-entity mindar-image-target="targetIndex: 0" id="target-interior">
             <a-text value="ENCENDER" color="#2ecc71" align="center" position="0 0.5 0"></a-text>
-            <a-entity class="clickable" id="btn-ar-start" position="0 0 0">
+            <a-entity position="0 0 0">
                 <a-cylinder color="#bdc3c7" height="0.03" radius="0.2"></a-cylinder>
-                <a-cylinder color="#c0392b" height="0.04" radius="0.15" position="0 0.02 0" animation="property: material.color; from: #c0392b; to: #e74c3c; dir: alternate; loop: true; dur: 800"></a-cylinder>
+                <a-cylinder id="btn-ar-start" class="clickable" color="#c0392b" height="0.04" radius="0.15" position="0 0.02 0" animation="property: material.color; from: #c0392b; to: #e74c3c; dir: alternate; loop: true; dur: 800"></a-cylinder>
                 <a-text value="START" align="center" color="white" position="0 0.06 0" rotation="-90 0 0" scale="0.5 0.5 0.5"></a-text>
             </a-entity>
         </a-entity>
 
         <a-entity mindar-image-target="targetIndex: 1" id="target-side">
             <a-text value="SHELBY GT500" color="#3498db" align="center" position="0 0.6 0" scale="1.2 1.2 1.2"></a-text>
-            <a-entity class="clickable" id="btn-ar-side" position="0 0 0" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
-                <a-circle radius="0.3" color="#000" opacity="0.7" border="color: white; width: 5"></a-circle>
+            <a-entity position="0 0 0" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
+                <a-circle id="btn-ar-side" class="clickable" radius="0.3" color="#000" opacity="0.7" border="color: white; width: 5"></a-circle>
                 <a-ring radius-inner="0.3" radius-outer="0.35" color="#3498db"></a-ring>
                 <a-text value="VER INFO" align="center" position="0 0 0.05" width="4"></a-text>
             </a-entity>
@@ -205,15 +205,15 @@
 
         <a-entity mindar-image-target="targetIndex: 2" id="target-motor">
             <a-text value="PREDATOR V8" color="#e74c3c" align="center" position="0 0.5 0"></a-text>
-            <a-entity class="clickable" id="btn-ar-motor" position="0 0 0">
+            <a-entity position="0 0 0">
                  <a-ring radius-inner="0.2" radius-outer="0.25" color="#e74c3c"></a-ring>
-                 <a-circle radius="0.15" color="black" opacity="0.8"></a-circle>
+                 <a-circle id="btn-ar-motor" class="clickable" radius="0.15" color="black" opacity="0.8"></a-circle>
                  <a-text value="760 HP" align="center" color="#e74c3c" width="3" position="0 0 0.05"></a-text>
             </a-entity>
         </a-entity>
 
         <a-entity mindar-image-target="targetIndex: 3" id="target-rueda">
-            <a-ring color="#ffc107" radius-inner="0.4" radius-outer="0.45" opacity="0.8"
+            <a-ring id="btn-ar-rueda-manual" class="clickable" color="#ffc107" radius-inner="0" radius-outer="0.45" opacity="0.3"
                     animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 800">
             </a-ring>
             <a-text value="SISTEMA DE\nFRENOS Y RUEDAS" align="center" color="#ffc107" position="0 0 0" scale="0.8 0.8 0.8"></a-text>
@@ -222,8 +222,9 @@
         <a-entity mindar-image-target="targetIndex: 4" id="target-consola">
             <a-plane color="#0dcaf0" height="0.6" width="0.8" opacity="0.2" border="color: #0dcaf0; width: 5"></a-plane>
             <a-text value="CONSOLA SYNC 3" align="center" color="#0dcaf0" position="0 0.4 0" scale="0.8 0.8 0.8"></a-text>
-            <a-entity class="clickable" id="btn-ar-consola" position="0 -0.4 0">
-                <a-circle radius="0.15" color="#0dcaf0" opacity="0.8"></a-circle>
+            
+            <a-entity position="0 -0.4 0">
+                <a-circle id="btn-ar-consola" class="clickable" radius="0.15" color="#0dcaf0" opacity="0.8"></a-circle>
                 <a-text value="VER\nDETALLES" align="center" position="0 0 0.05" width="3"></a-text>
             </a-entity>
         </a-entity>
@@ -231,13 +232,15 @@
         <a-entity mindar-image-target="targetIndex: 5" id="target-volante">
             <a-ring color="#0d6efd" radius-inner="0.2" radius-outer="0.22" animation="property: rotation; to: 0 0 360; loop: true; dur: 5000"></a-ring>
             <a-text value="VOLANTE DETECTADO" align="center" color="#0d6efd" position="0 0.35 0"></a-text>
+            <a-circle id="btn-ar-volante-manual" class="clickable" radius="0.25" opacity="0"></a-circle>
         </a-entity>
 
         <a-entity mindar-image-target="targetIndex: 6" id="target-asiento">
             <a-plane color="white" width="0.5" height="0.7" opacity="0.1" border="color: white; width: 4"></a-plane>
             <a-text value="ASIENTOS RECARO" align="center" color="white" position="0 0.45 0" scale="0.8 0.8 0.8"></a-text>
-            <a-entity class="clickable" id="btn-ar-asiento" position="0 0 0.05">
-                <a-circle radius="0.1" color="white" opacity="0.9"></a-circle>
+            
+            <a-entity position="0 0 0.05">
+                <a-circle id="btn-ar-asiento" class="clickable" radius="0.1" color="white" opacity="0.9"></a-circle>
                 <a-ring radius-inner="0.1" radius-outer="0.12" color="black"></a-ring>
                 <a-text value="INFO" color="black" align="center" position="0 -0.01 0"></a-text>
             </a-entity>
@@ -288,13 +291,18 @@
         tMotor.addEventListener("targetLost", onLost);
         document.getElementById('btn-ar-motor').addEventListener('click', () => panels.motor.show());
 
-        // --- Evento 3: Rueda (Automático) ---
+        // Evento 3: Rueda (Auto + Manual Click)
         const tRueda = document.getElementById('target-rueda');
-        tRueda.addEventListener("targetFound", () => {
+        const openRueda = () => {
             onFound("RUEDA", "#ffc107");
-            setTimeout(() => panels.rueda.show(), 500);
-        });
+            panels.rueda.show();
+        };
+        // Activación automática
+        tRueda.addEventListener("targetFound", () => setTimeout(openRueda, 500));
         tRueda.addEventListener("targetLost", onLost);
+        // Activación manual (Si añadiste el id btn-ar-rueda-manual)
+        const btnRueda = document.getElementById('btn-ar-rueda-manual');
+        if(btnRueda) btnRueda.addEventListener('click', openRueda);
 
         // --- Evento 4: Consola (Click Manual) ---
         const tConsola = document.getElementById('target-consola');
@@ -302,13 +310,16 @@
         tConsola.addEventListener("targetLost", onLost);
         document.getElementById('btn-ar-consola').addEventListener('click', () => panels.consola.show());
 
-        // --- Evento 5: Volante (Automático) ---
+        // Evento 5: Volante (Auto + Manual Click)
         const tVolante = document.getElementById('target-volante');
-        tVolante.addEventListener("targetFound", () => {
+        const openVolante = () => {
             onFound("VOLANTE", "#0d6efd");
-            setTimeout(() => panels.volante.show(), 600);
-        });
+            panels.volante.show();
+        };
+        tVolante.addEventListener("targetFound", () => setTimeout(openVolante, 600));
         tVolante.addEventListener("targetLost", onLost);
+        const btnVolante = document.getElementById('btn-ar-volante-manual');
+        if(btnVolante) btnVolante.addEventListener('click', openVolante);
 
         // --- Evento 6: Asiento (Click Manual) ---
         const tAsiento = document.getElementById('target-asiento');
