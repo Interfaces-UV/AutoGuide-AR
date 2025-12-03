@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shelby GT500 - Manual AR</title>
+    <title>Shelby GT500 - Manual AR Completo</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,7 +23,6 @@
         .interactive { pointer-events: auto; }
         .cobra-text { color: #3498db; letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
 
-        /* Estilo del Botón Manual Principal */
         .btn-manual {
             border: 1px solid #3498db;
             color: #3498db;
@@ -46,6 +45,7 @@
             background: rgba(0, 0, 0, 0.8); color: white;
             padding: 8px 20px; border-radius: 50px;
             font-size: 0.9rem; border: 1px solid #555;
+            transition: all 0.3s;
         }
     </style>
 </head>
@@ -67,7 +67,7 @@
         <div class="scan-frame text-white text-center" id="scan-ui">
             <div class="opacity-75">
                 <i class="fas fa-expand fa-2x mb-2"></i><br>
-                <small>Escanea Lateral, Motor o Interior</small>
+                <small>Escanea: Exterior, Motor, Rueda,<br>Volante, Consola o Asiento</small>
             </div>
         </div>
 
@@ -85,10 +85,7 @@
             <img src="./lado.png" class="img-fluid rounded mb-3 shadow-lg">
             <h4 class="fw-bold mb-3">Shelby GT500 2022</h4>
             <p>El pináculo del rendimiento diseñado para competir con superdeportivos.</p>
-            
-            <a href="https://www.ford.mx/performance/shelby-gt500/2022/" target="_blank" class="btn btn-outline-light w-100 mt-3">
-                <i class="fas fa-download me-2"></i>Descargar Catálogo Completo
-            </a>
+            <a href="#" class="btn btn-outline-light w-100 mt-3"><i class="fas fa-download me-2"></i>Descargar Catálogo</a>
         </div>
     </div>
 
@@ -104,11 +101,7 @@
                 <div class="border-start border-secondary mx-2"></div>
                 <div><h2 class="fw-bold m-0">V8</h2><small>5.2L</small></div>
             </div>
-            
-            <a href="https://www.youtube.com/watch?v=bBKZZj8JFXY" target="_blank" class="btn btn-danger w-100 mt-2">
-                <i class="fas fa-file-alt me-2"></i>Ver Shelby GT500
-            </a>
-            <small class="text-muted d-block text-center mt-2">*Todo acerca del motor</small>
+            <a href="#" class="btn btn-danger w-100 mt-2"><i class="fas fa-file-alt me-2"></i>Ver Detalles Motor</a>
         </div>
     </div>
 
@@ -123,10 +116,57 @@
                 <li class="list-group-item bg-transparent text-white">Pise freno.</li>
                 <li class="list-group-item bg-transparent text-white">Pulse <strong>START</strong>.</li>
             </ol>
-            
-            <a href="https://www.youtube.com/watch?v=VO_MmtM9Mrg" target="_blank" class="btn btn-success w-100 mt-3">
-                <i class="fas fa-book-open me-2"></i>Leer Guía de Usuario
-            </a>
+            <button class="btn btn-success w-100 mt-3">Leer Guía de Usuario</button>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom h-60 interactive text-white bg-dark" tabindex="-1" id="panelRueda">
+        <div class="offcanvas-header border-bottom border-warning">
+            <h5 class="offcanvas-title text-warning">Frenos y Ruedas</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="row text-center mb-3">
+                <div class="col-6"><h5 class="m-0 text-warning">20"</h5><small>Fibra de Carbono</small></div>
+                <div class="col-6"><h5 class="m-0 text-warning">Brembo</h5><small>420mm (6 pistones)</small></div>
+            </div>
+            <p>Neumáticos Michelin Pilot Sport 4S.</p>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom h-50 interactive text-white bg-dark" tabindex="-1" id="panelConsola">
+        <div class="offcanvas-header border-bottom border-info">
+            <h5 class="offcanvas-title text-info"><i class="fas fa-tablet-alt me-2"></i>Tecnología SYNC 3</h5>
+            <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>Selector de cambios rotativo para mayor velocidad. Pantalla de 8" con Track Apps.</p>
+            <button class="btn btn-info w-100 text-white">Ver Modos de Manejo</button>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom h-50 interactive text-white bg-dark" tabindex="-1" id="panelVolante">
+        <div class="offcanvas-header border-bottom border-primary">
+            <h5 class="offcanvas-title text-primary"><i class="fas fa-gamepad me-2"></i>Volante Cobra</h5>
+            <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-unstyled">
+                <li class="mb-2"><i class="fas fa-check text-primary me-2"></i>Recubrimiento en Alcántara.</li>
+                <li class="mb-2"><i class="fas fa-check text-primary me-2"></i>Levas de magnesio.</li>
+                <li class="mb-2"><i class="fas fa-check text-primary me-2"></i>Botón Cobra (Modo Pista).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom h-50 interactive text-white bg-dark" tabindex="-1" id="panelAsiento">
+        <div class="offcanvas-header border-bottom border-light">
+            <h5 class="offcanvas-title fw-bold">Asientos RECARO</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>Diseñados para competencia con pasadores para arnés de seguridad de 5 puntos.</p>
+            <button class="btn btn-light w-100 fw-bold">Ajustes de Posición</button>
         </div>
     </div>
 
@@ -134,24 +174,30 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-dark">
                 <div class="modal-header"><h5>Instrucciones</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body">Apunta la cámara a las partes del Shelby GT500.</div>
+                <div class="modal-body">Apunta la cámara a las partes del Shelby GT500 para ver información.</div>
             </div>
         </div>
     </div>
 
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.0001; filterBeta: 0.001;" 
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.0001; filterBeta: 0.001; maxTrack: 2" 
              color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" 
              vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
         
         <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
 
-        <a-entity mindar-image-target="targetIndex: 0" id="target-side">
+        <a-entity mindar-image-target="targetIndex: 0" id="target-interior">
+            <a-text value="ENCENDER" color="#2ecc71" align="center" position="0 0.5 0"></a-text>
+            <a-entity class="clickable" id="btn-ar-start" position="0 0 0">
+                <a-cylinder color="#bdc3c7" height="0.03" radius="0.2"></a-cylinder>
+                <a-cylinder color="#c0392b" height="0.04" radius="0.15" position="0 0.02 0" animation="property: material.color; from: #c0392b; to: #e74c3c; dir: alternate; loop: true; dur: 800"></a-cylinder>
+                <a-text value="START" align="center" color="white" position="0 0.06 0" rotation="-90 0 0" scale="0.5 0.5 0.5"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex: 1" id="target-side">
             <a-text value="SHELBY GT500" color="#3498db" align="center" position="0 0.6 0" scale="1.2 1.2 1.2"></a-text>
-            
-            <a-entity position="0 0 0" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
-                
-                <a-circle id="btn-ar-side" class="clickable" radius="0.3" color="#000" opacity="0.7" border="color: white; width: 5"></a-circle>
-                
+            <a-entity class="clickable" id="btn-ar-side" position="0 0 0" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000">
+                <a-circle radius="0.3" color="#000" opacity="0.7" border="color: white; width: 5"></a-circle>
                 <a-ring radius-inner="0.3" radius-outer="0.35" color="#3498db"></a-ring>
                 <a-text value="VER INFO" align="center" position="0 0 0.05" width="4"></a-text>
             </a-entity>
@@ -159,24 +205,41 @@
 
         <a-entity mindar-image-target="targetIndex: 2" id="target-motor">
             <a-text value="PREDATOR V8" color="#e74c3c" align="center" position="0 0.5 0"></a-text>
-            
-            <a-entity position="0 0 0">
+            <a-entity class="clickable" id="btn-ar-motor" position="0 0 0">
                  <a-ring radius-inner="0.2" radius-outer="0.25" color="#e74c3c"></a-ring>
-                 
-                 <a-circle id="btn-ar-motor" class="clickable" radius="0.15" color="black" opacity="0.8"></a-circle>
-                 
+                 <a-circle radius="0.15" color="black" opacity="0.8"></a-circle>
                  <a-text value="760 HP" align="center" color="#e74c3c" width="3" position="0 0 0.05"></a-text>
             </a-entity>
         </a-entity>
 
-        <a-entity mindar-image-target="targetIndex: 1" id="target-interior">
-            <a-text value="ENCENDER" color="#2ecc71" align="center" position="0 0.5 0"></a-text>
-            
-            <a-entity position="0 0 0">
-                <a-cylinder id="btn-ar-start" class="clickable" color="#bdc3c7" height="0.03" radius="0.2"></a-cylinder>
-                
-                <a-cylinder color="#c0392b" height="0.04" radius="0.15" position="0 0.02 0" animation="property: material.color; from: #c0392b; to: #e74c3c; dir: alternate; loop: true; dur: 800"></a-cylinder>
-                <a-text value="START" align="center" color="white" position="0 0.06 0" rotation="-90 0 0" scale="0.5 0.5 0.5"></a-text>
+        <a-entity mindar-image-target="targetIndex: 3" id="target-rueda">
+            <a-ring color="#ffc107" radius-inner="0.4" radius-outer="0.45" opacity="0.8"
+                    animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 800">
+            </a-ring>
+            <a-text value="SISTEMA DE\nFRENOS Y RUEDAS" align="center" color="#ffc107" position="0 0 0" scale="0.8 0.8 0.8"></a-text>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex: 4" id="target-consola">
+            <a-plane color="#0dcaf0" height="0.6" width="0.8" opacity="0.2" border="color: #0dcaf0; width: 5"></a-plane>
+            <a-text value="CONSOLA SYNC 3" align="center" color="#0dcaf0" position="0 0.4 0" scale="0.8 0.8 0.8"></a-text>
+            <a-entity class="clickable" id="btn-ar-consola" position="0 -0.4 0">
+                <a-circle radius="0.15" color="#0dcaf0" opacity="0.8"></a-circle>
+                <a-text value="VER\nDETALLES" align="center" position="0 0 0.05" width="3"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex: 5" id="target-volante">
+            <a-ring color="#0d6efd" radius-inner="0.2" radius-outer="0.22" animation="property: rotation; to: 0 0 360; loop: true; dur: 5000"></a-ring>
+            <a-text value="VOLANTE DETECTADO" align="center" color="#0d6efd" position="0 0.35 0"></a-text>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex: 6" id="target-asiento">
+            <a-plane color="white" width="0.5" height="0.7" opacity="0.1" border="color: white; width: 4"></a-plane>
+            <a-text value="ASIENTOS RECARO" align="center" color="white" position="0 0.45 0" scale="0.8 0.8 0.8"></a-text>
+            <a-entity class="clickable" id="btn-ar-asiento" position="0 0 0.05">
+                <a-circle radius="0.1" color="white" opacity="0.9"></a-circle>
+                <a-ring radius-inner="0.1" radius-outer="0.12" color="black"></a-ring>
+                <a-text value="INFO" color="black" align="center" position="0 -0.01 0"></a-text>
             </a-entity>
         </a-entity>
 
@@ -184,9 +247,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const pGeneral = new bootstrap.Offcanvas('#panelGeneral');
-        const pMotor = new bootstrap.Offcanvas('#panelMotor');
-        const pInterior = new bootstrap.Offcanvas('#panelInterior');
+        // Inicializar Paneles
+        const panels = {
+            general: new bootstrap.Offcanvas('#panelGeneral'),
+            motor: new bootstrap.Offcanvas('#panelMotor'),
+            interior: new bootstrap.Offcanvas('#panelInterior'),
+            rueda: new bootstrap.Offcanvas('#panelRueda'),
+            consola: new bootstrap.Offcanvas('#panelConsola'),
+            volante: new bootstrap.Offcanvas('#panelVolante'),
+            asiento: new bootstrap.Offcanvas('#panelAsiento')
+        };
+
         const statusMsg = document.getElementById('status-msg');
         const scanUI = document.getElementById('scan-ui');
 
@@ -201,21 +272,50 @@
             scanUI.style.opacity = 1;
         }
 
-        // Eventos
+        // --- Eventos (Targets 0, 1, 2 - Básicos) ---
+        const tInterior = document.getElementById('target-interior');
+        tInterior.addEventListener("targetFound", () => onFound("INTERIOR", "#2ecc71"));
+        tInterior.addEventListener("targetLost", onLost);
+        document.getElementById('btn-ar-start').addEventListener('click', () => panels.interior.show());
+
         const tSide = document.getElementById('target-side');
         tSide.addEventListener("targetFound", () => onFound("EXTERIOR", "#3498db"));
         tSide.addEventListener("targetLost", onLost);
-        document.getElementById('btn-ar-side').addEventListener('click', () => pGeneral.show());
+        document.getElementById('btn-ar-side').addEventListener('click', () => panels.general.show());
 
         const tMotor = document.getElementById('target-motor');
         tMotor.addEventListener("targetFound", () => onFound("MOTOR", "#e74c3c"));
         tMotor.addEventListener("targetLost", onLost);
-        document.getElementById('btn-ar-motor').addEventListener('click', () => pMotor.show());
+        document.getElementById('btn-ar-motor').addEventListener('click', () => panels.motor.show());
 
-        const tInterior = document.getElementById('target-interior');
-        tInterior.addEventListener("targetFound", () => onFound("INTERIOR", "#2ecc71"));
-        tInterior.addEventListener("targetLost", onLost);
-        document.getElementById('btn-ar-start').addEventListener('click', () => pInterior.show());
+        // --- Evento 3: Rueda (Automático) ---
+        const tRueda = document.getElementById('target-rueda');
+        tRueda.addEventListener("targetFound", () => {
+            onFound("RUEDA", "#ffc107");
+            setTimeout(() => panels.rueda.show(), 500);
+        });
+        tRueda.addEventListener("targetLost", onLost);
+
+        // --- Evento 4: Consola (Click Manual) ---
+        const tConsola = document.getElementById('target-consola');
+        tConsola.addEventListener("targetFound", () => onFound("CONSOLA", "#0dcaf0"));
+        tConsola.addEventListener("targetLost", onLost);
+        document.getElementById('btn-ar-consola').addEventListener('click', () => panels.consola.show());
+
+        // --- Evento 5: Volante (Automático) ---
+        const tVolante = document.getElementById('target-volante');
+        tVolante.addEventListener("targetFound", () => {
+            onFound("VOLANTE", "#0d6efd");
+            setTimeout(() => panels.volante.show(), 600);
+        });
+        tVolante.addEventListener("targetLost", onLost);
+
+        // --- Evento 6: Asiento (Click Manual) ---
+        const tAsiento = document.getElementById('target-asiento');
+        tAsiento.addEventListener("targetFound", () => onFound("ASIENTOS", "#f8f9fa"));
+        tAsiento.addEventListener("targetLost", onLost);
+        document.getElementById('btn-ar-asiento').addEventListener('click', () => panels.asiento.show());
+
     </script>
 </body>
 </html>
